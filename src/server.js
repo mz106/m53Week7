@@ -1,22 +1,59 @@
+require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
+
+const port = process.env.PORT || 5001;
 
 const app = express();
 
 app.use(express.json());
 
-const books = [];
+const connection = async () => {
+  await mongoose.connect(process.env.MONGODB_URI);
+  console.log("DB connection is working");
+};
 
-app.post("/book", (request, response) => {
-  books.push(request.body);
+connection();
+
+// what do we want in our data? (of a book)
+
+// title, author, genre - all strings
+
+const bookSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  author: {
+    type: String,
+  },
+  genre: {
+    type: String,
+  },
+});
+
+const Book = mongoose.model("Book", bookSchema);
+
+// await Character.create({ name: 'Jean-Luc Picard' });
+
+// add (or POST) a book to the db
+app.post("/book", async (request, response) => {
+  const book = await Book.create({
+    title: request.body.title,
+    author: request.body.author,
+    genre: request.body.genre,
+  });
 
   const successResponse = {
     message: "book added",
-    books: books,
+    book: book,
   };
 
   response.send(successResponse);
 });
 
+// get ALL books from the DB
 app.get("/book", (request, response) => {
   const index = books.findIndex((book) => book.title === request.body.title);
 
@@ -30,6 +67,7 @@ app.get("/book", (request, response) => {
 
 app.get("/book", (request, response) => {});
 
+// delete a single book from the DB
 app.delete("/book", (request, response) => {
   const index = books.findIndex((book) => book.title === request.body.title);
 
@@ -46,6 +84,7 @@ app.delete("/book", (request, response) => {
 
 app.delete("/book/deleteAllBooks");
 
+// update a single book's author
 app.put("/book");
 
 app.get("/movie", (request, response) => {
@@ -64,8 +103,8 @@ app.get("/movie/allMovies", (request, response) => {
   response.send(successResponse);
 });
 
-app.listen(5001, () => {
-  console.log("Server is listening on port 5001");
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
 });
 
 // if (HTTP === "GET") {
