@@ -6,8 +6,6 @@ app.use(express.json());
 
 const books = [];
 
-const myArray = [];
-
 app.post("/book", (request, response) => {
   books.push(request.body);
 
@@ -30,9 +28,41 @@ app.get("/book", (request, response) => {
   response.send(successResponse);
 });
 
-app.delete("/book");
+app.get("/book", (request, response) => {});
+
+app.delete("/book", (request, response) => {
+  const index = books.findIndex((book) => book.title === request.body.title);
+
+  // at position index, remove 1 element
+  books.splice(index, 1);
+
+  const successResponse = {
+    message: "book deleted",
+    books: books,
+  };
+
+  response.send(successResponse);
+});
+
+app.delete("/book/deleteAllBooks");
 
 app.put("/book");
+
+app.get("/movie", (request, response) => {
+  const successResponse = {
+    message: "hello from single movie",
+  };
+
+  response.send(successResponse);
+});
+
+app.get("/movie/allMovies", (request, response) => {
+  const successResponse = {
+    message: "hello from all of the movies",
+  };
+
+  response.send(successResponse);
+});
 
 app.listen(5001, () => {
   console.log("Server is listening on port 5001");

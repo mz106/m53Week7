@@ -1,8 +1,8 @@
-const myMovie = {
-  title: "movie 1",
-  actor: "dave",
-  genre: "sci-fi",
-};
+// const myMovie = {
+//   title: "movie 1",
+//   actor: "dave",
+//   genre: "sci-fi",
+// };
 
 const myArray = [
   {
@@ -20,7 +20,7 @@ const myArray = [
 ];
 
 const data = {
-  personName: "sarah",
+  personName: "jane",
 };
 
 const index = myArray.findIndex(
@@ -30,5 +30,19 @@ const index = myArray.findIndex(
 // console.log(`Index of ${data.personName}: `, index);
 console.log(`Person element at index ${index}: `, myArray[index]);
 
-myArray[index].personName = "betty";
-console.log(myArray[index]);
+// myArray[index].personName = "betty";
+// console.log(myArray[index]);
+// myArray[index].age = 64;
+// console.log(myArray[index]);
+// const superArray = ["bill", "dave", "fred"];
+
+// const index = 2;
+
+// console.log(superArray[index]);
+
+// is "2" equal to "1+1"
+// 1 + 1 === 2
+
+// assignment operator is "="
+
+const myVariable = ["apples"];
