@@ -6,6 +6,8 @@ app.use(express.json());
 
 const books = [];
 
+const myArray = [];
+
 app.post("/book", (request, response) => {
   books.push(request.body);
 
@@ -18,7 +20,7 @@ app.post("/book", (request, response) => {
 });
 
 app.get("/book", (request, response) => {
-  const index = books.findIndex((x) => x.title === request.body.title);
+  const index = books.findIndex((book) => book.title === request.body.title);
 
   const successResponse = {
     message: "book found",
