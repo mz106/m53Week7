@@ -37,6 +37,11 @@ const Book = mongoose.model("Book", bookSchema);
 
 // await Character.create({ name: 'Jean-Luc Picard' });
 
+app.get("/:id", function (req, res) {
+  console.log(req.params["id"]);
+  res.send();
+});
+
 // add (or POST) a book to the db
 app.post("/book", async (request, response) => {
   const book = await Book.create({
@@ -54,18 +59,22 @@ app.post("/book", async (request, response) => {
 });
 
 // get ALL books from the DB
-app.get("/book", (request, response) => {
-  const index = books.findIndex((book) => book.title === request.body.title);
+app.get("/book", async (request, response) => {
+  console.log("request.params: ", request.params);
 
+  const books = await Book.find({});
   const successResponse = {
     message: "book found",
-    book: books[index],
+    books: books,
   };
 
   response.send(successResponse);
 });
 
-app.get("/book", (request, response) => {});
+// get single book by title
+app.get("/book/singleBook", async (request, response) => {
+  const book = await Book.find({ title: request.params.title });
+});
 
 // delete a single book from the DB
 app.delete("/book", (request, response) => {
@@ -85,7 +94,38 @@ app.delete("/book", (request, response) => {
 app.delete("/book/deleteAllBooks");
 
 // update a single book's author
-app.put("/book");
+app.put("/book", async (request, response) => {
+  const book = await Book.updateOne(
+    {
+      title: request.body.title,
+    },
+    {
+      author: request.body.author,
+    }
+  );
+
+  const successResponse = {
+    message: "book updated",
+    book: book,
+  };
+
+  response.send(successResponse);
+});
+
+app.put("/book/dynamicUpdate", async (request, response) => {
+  const obj = {
+    [request.body.dynamicKey]: request.body.dynamicValue,
+  };
+
+  console.log("the object: ", obj);
+
+  const successResponse = {
+    message: "We've got a dynamic object!",
+    dynamicObj: obj,
+  };
+
+  response.send(obj);
+});
 
 app.get("/movie", (request, response) => {
   const successResponse = {
