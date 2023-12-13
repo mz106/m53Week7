@@ -74,32 +74,6 @@ app.put("/book/dynamicUpdate", async (request, response) => {
   response.send(obj);
 });
 
-app.get("/movie", (request, response) => {
-  const successResponse = {
-    message: "hello from single movie",
-  };
-
-  response.send(successResponse);
-});
-
-app.get("/movie/allMovies", (request, response) => {
-  const successResponse = {
-    message: "hello from all of the movies",
-  };
-
-  response.send(successResponse);
-});
-
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
-
-// if (HTTP === "GET") {
-//   // do some get stuff
-// } else if (HTTP === "POST") {
-//   // do some post stuff
-// }
-
-// const response = await fetch("http://localhost:5001/book", {
-//     method: "DELETE"
-// });
