@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 
 const connection = require("../db/connection");
 
+const Book = require("../book/model");
+
 const port = process.env.PORT || 5001;
 
 const app = express();
@@ -12,29 +14,6 @@ app.use(express.json());
 
 connection();
 
-// what do we want in our data? (of a book)
-
-// title, author, genre - all strings
-
-const bookSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  author: {
-    type: String,
-  },
-  genre: {
-    type: String,
-  },
-});
-
-const Book = mongoose.model("Book", bookSchema);
-
-// await Character.create({ name: 'Jean-Luc Picard' });
-
-// add (or POST) a book to the db
 app.post("/book", async (request, response) => {
   const book = await Book.create({
     title: request.body.title,
