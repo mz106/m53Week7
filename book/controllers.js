@@ -15,6 +15,17 @@ const addBook = async (request, response) => {
   response.send(successResponse);
 };
 
+const getAllBooks = async (request, response) => {
+  const books = await Book.find({});
+  const successResponse = {
+    message: "book found",
+    books: books,
+  };
+
+  response.send(successResponse);
+};
+
 module.exports = {
   addBook: addBook,
+  getAllBooks: getAllBooks,
 };

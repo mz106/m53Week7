@@ -18,17 +18,6 @@ connection();
 
 app.use(bookRouter);
 
-// get ALL books from the DB
-app.get("/book", async (request, response) => {
-  const books = await Book.find({});
-  const successResponse = {
-    message: "book found",
-    books: books,
-  };
-
-  response.send(successResponse);
-});
-
 // get single book by title
 app.get("/book/singleBook", async (request, response) => {
   const book = await Book.find({ title: request.params.title });
