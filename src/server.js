@@ -6,6 +6,8 @@ const connection = require("../db/connection");
 
 const Book = require("../book/model");
 
+const bookRouter = require("../book/routes");
+
 const port = process.env.PORT || 5001;
 
 const app = express();
@@ -14,20 +16,7 @@ app.use(express.json());
 
 connection();
 
-app.post("/book", async (request, response) => {
-  const book = await Book.create({
-    title: request.body.title,
-    author: request.body.author,
-    genre: request.body.genre,
-  });
-
-  const successResponse = {
-    message: "book added",
-    book: book,
-  };
-
-  response.send(successResponse);
-});
+app.use(bookRouter);
 
 // get ALL books from the DB
 app.get("/book", async (request, response) => {
