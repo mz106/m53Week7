@@ -2,16 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
+const connection = require("../db/connection");
+
 const port = process.env.PORT || 5001;
 
 const app = express();
 
 app.use(express.json());
-
-const connection = async () => {
-  await mongoose.connect(process.env.MONGODB_URI);
-  console.log("DB connection is working");
-};
 
 connection();
 
@@ -37,11 +34,6 @@ const Book = mongoose.model("Book", bookSchema);
 
 // await Character.create({ name: 'Jean-Luc Picard' });
 
-app.get("/:id", function (req, res) {
-  console.log(req.params["id"]);
-  res.send();
-});
-
 // add (or POST) a book to the db
 app.post("/book", async (request, response) => {
   const book = await Book.create({
@@ -60,8 +52,6 @@ app.post("/book", async (request, response) => {
 
 // get ALL books from the DB
 app.get("/book", async (request, response) => {
-  console.log("request.params: ", request.params);
-
   const books = await Book.find({});
   const successResponse = {
     message: "book found",
