@@ -1,48 +1,22 @@
-// const myMovie = {
-//   title: "movie 1",
-//   actor: "dave",
-//   genre: "sci-fi",
+const dynamicKey0 = "favBook";
+const dynamicValue0 = "LotR";
+
+const dynamicKey1 = "favMovie";
+const dynamicValue1 = "aliens";
+
+const dynamicKey2 = "likesCoffee";
+const dynamicValue2 = true;
+
+// const obj = {
+//   name: "Aman",
+//   age: 25,
+//   city: "Noida",
 // };
 
-const myArray = [
-  {
-    personName: "jane",
-    age: 24,
-  },
-  {
-    personName: "chris",
-    age: "53",
-  },
-  {
-    personName: "sarah",
-    age: "35",
-  },
-];
-
-const data = {
-  personName: "jane",
+const dynamicObject = {
+  [dynamicKey0]: dynamicValue0,
+  [dynamicKey1]: dynamicValue1,
+  [dynamicKey2]: dynamicValue2,
 };
 
-const index = myArray.findIndex(
-  (person) => person.personName === data.personName
-);
-
-// console.log(`Index of ${data.personName}: `, index);
-console.log(`Person element at index ${index}: `, myArray[index]);
-
-// myArray[index].personName = "betty";
-// console.log(myArray[index]);
-// myArray[index].age = 64;
-// console.log(myArray[index]);
-// const superArray = ["bill", "dave", "fred"];
-
-// const index = 2;
-
-// console.log(superArray[index]);
-
-// is "2" equal to "1+1"
-// 1 + 1 === 2
-
-// assignment operator is "="
-
-const myVariable = ["apples"];
+console.log(dynamicObject);
