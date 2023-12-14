@@ -20,3 +20,25 @@ const dynamicObject = {
 };
 
 console.log(dynamicObject);
+
+//
+const response = await fetch("my url/book", {
+  method: "POST",
+  mode: "cors",
+  body: JSON.stringify({
+    title: "water bottles",
+    author: "dave",
+    genre: "horror",
+  }),
+});
+
+const data = await response.json();
+
+if (data.message === "book added") {
+  //do something with the book
+} else if (data.message === "the error has landed") {
+  // do something else with the error
+  if (data.error.code === 11000) {
+    // tell user that the book with that title has already been added to the db
+  }
+}
